@@ -1,0 +1,21 @@
+#lang racket
+(define rember
+  (lambda (a l)
+    (cond
+      ((null? l) '())
+      ((eq? (car l) a) (rember a (cdr l)))
+      (else
+       (cons (car l) (rember a (cdr l)))))))
+
+(define a 'sauce)
+(define lat '(soy sauce and tomato sauce))
+
+(rember a lat)
+
+(define firsts
+  (lambda (lat)
+    (cond
+      ((null? lat) '())
+      (else
+       (cons (car (car lat)) (firsts (cdr lat)))))))
+

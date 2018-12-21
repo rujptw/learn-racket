@@ -1,0 +1,34 @@
+#lang racket
+(define  atom?
+  (lambda  (x)
+    (and  (not  (pair?  x))  (not  (null?  x)))))
+
+(define rember*
+  (lambda (a l)
+    (cond
+      ((null? l) '())
+      ((atom? (car l))
+       (cond
+         ((eq? (car l) a) (rember* a (cdr l)))
+         (else
+          (cons (car l) (rember* a (cdr l))))))
+      (else
+       (cons (rember* a (car l)) (rember* a (cdr l)))))))
+
+(define insertR*
+  (lambda (new old lat)
+    (cond
+      ((null? lat) '())
+      ((atom? (car lat))
+       (cond
+         ((eq? (car lat) old) (cons old (cons new (insertR* new old (cdr lat)))))
+         (else
+          (cons (car lat) (insertR* new old (cdr lat))))))
+      (else
+       (cons (insertR* new old (car lat)) (insertR* new old (cdr lat)))))))
+(insertR* 'roast 'chuck ' '((how  much  (wood))
+could
+((a  (wood) chuck))
+(((chuck)))
+(if (a) ((wood chuck)))
+could chuck wood))
