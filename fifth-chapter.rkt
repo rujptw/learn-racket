@@ -138,7 +138,23 @@
         (else
             (eqlist (n m))))))
 
-;帮助函数作用很大，让程序变得优雅
+; 原版eqlist
+(define eqlist
+    (lambda  (n m)
+    (cond
+        ((and (null? n) (null? m)) #t)
+        ((or (null? n) (null? m)) #f)
+        ((and(atom? (car l)) (atom? (car m)))
+        (cond
+            ((and (eqan? (car n) (car m)) (eqlist (cdr n) (cdr m))))))
+        ((or (atom? (car n) (atom? m)) #f))
+        (else
+            (and (eqlist (car n) (car m)) (eqlist (cdr n) (cdr m)))))))
+
+
+
+
+;帮助函数作用很大，让程序变得优雅(简化版eqlist)
 (define eqlist
   (lambda (lat1 lat2)
     (cond
@@ -146,6 +162,7 @@
       ((or (null? lat1) (null? lat2) #f))
       (else
         (and (equal? (car lat1) (car lat2)) (eqlist (cdr lat1) (cdr lat2)))))))
+
 
 (define lat1  '(beef ((sausage)) (and (soda))))
 (define lat2  '(beef ((sausage)) (and (soda))))
